@@ -12,10 +12,17 @@ commit_website_files() {
 }
 
 upload_files() {
+  git remote -v
+  git remote remove origin
+  git remote add origin git@github.com:eliocamp/ggnewscale.git
+
   git remote add origin https://${GITHUB_API_KEY}@github.com/eliocamp/ggnewscale.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin master
+  git push --quiet -u --set-upstream origin master
 }
 
 setup_git
 commit_website_files
 upload_files
+
+
+git push origin HEAD:master

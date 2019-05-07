@@ -6,13 +6,18 @@ cache: packages
 
 after_success:
   - Rscript -e 'devtools::install_github("eliocamp/ggnewscale")'
-  - sh .travis_push
+  - eval "$(ssh-agent -s)" #start the ssh agent
+  - chmod 600 .travis/deploy_key.pem # this key should have push access
+  - ssh-add .travis/deploy_key.pem
+  - git remote add deploy git@github.com:eliocamp/ggnewscale.git
+  - git push deploy
+
 
 
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
 
+deploy:
+  - provider: script
+    script: Rscript -e 'pkgdown::deploy_site_github()'
+    skip_cleanup: true
 
