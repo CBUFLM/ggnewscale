@@ -6,7 +6,7 @@ cache: packages
 
 after_success:
   - Rscript -e 'devtools::install_github("eliocamp/ggnewscale")'
-  - .travis_push
+  - sh .travis_push
 
 
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
