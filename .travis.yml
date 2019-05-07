@@ -9,10 +9,10 @@ after_success:
   - git config user.email "travis@travis.org"
   - git config user.name "travis" # this email and name can be set anything you like
   - git checkout master
-  - git add *
-  - git commit --allow-empty -m "travis -- push from dev"
+  - git add -A
+  - git commit -m "travis -- push from dev"
   - git remote rm origin
-  - git remote add origin https://eliocamp:${GH_TOKEN}@github.com/eliocamp/ggnewscale.git > /dev/null 2>&1
+  - git remote add origin http://eliocamp:${GH_TOKEN}@github.com/eliocamp/ggnewscale.git > /dev/null 2>&1
   - git push origin master --quiet
 
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
